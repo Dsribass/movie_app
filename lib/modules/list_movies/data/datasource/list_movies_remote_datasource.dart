@@ -1,11 +1,14 @@
 import 'dart:convert';
 
-import 'package:movie_app/modules/list_movies/data/datasource/i_datasource.dart';
 import 'package:movie_app/modules/list_movies/exceptions/failure_get_movies_exception.dart';
 import 'package:movie_app/modules/list_movies/domain/entities/movie.dart';
 import 'package:http/http.dart' as http;
 
-class RemoteDataSource implements IDataSource {
+abstract class IListMoviesRemoteDataSource {
+  Future<List<Movie>> fetchAll();
+}
+
+class ListMoviesRemoteDataSource implements IListMoviesRemoteDataSource {
   @override
   Future<List<Movie>> fetchAll() async {
     final url =

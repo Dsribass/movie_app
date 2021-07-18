@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:movie_app/modules/detail_movie/data/datasource/i_datasource.dart';
+import 'package:movie_app/modules/detail_movie/data/datasource/i_detail_movie_datasource.dart';
 import 'package:movie_app/modules/detail_movie/domain/entities/movie_detail.dart';
 import 'package:movie_app/modules/detail_movie/exceptions/failure_find_movie_exception.dart';
 
@@ -9,7 +9,7 @@ abstract class IFindMovieRepository {
 
 
 class FindMovieRepository implements IFindMovieRepository{
-  final IDataSource _ds;
+  final IDetailMovieDataSource _ds;
 
   FindMovieRepository(this._ds);
 
