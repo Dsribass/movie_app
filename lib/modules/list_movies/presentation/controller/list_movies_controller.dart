@@ -1,29 +1,30 @@
-
+import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:movie_app/modules/list_movies/data/datasource/remote_datasource.dart';
 import 'package:movie_app/modules/list_movies/data/repositories/movies_repository.dart';
 import 'package:movie_app/modules/list_movies/domain/entities/movie.dart';
 import 'package:movie_app/modules/list_movies/domain/usecases/get_movies_usecase.dart';
 
-enum PageState {
-  START, LOADING, SUCCESS, ERROR
-}
+enum PageState { LOADING, SUCCESS, ERROR }
 
-class ListMoviesController{
+class ListMoviesController {
   final _getMoviesUseCase = GetMoviesUseCase(MoviesRepository(RemoteDataSource()));
-  PageState state = PageState.START;
-  var moviesNotifier = ValueNotifier<List<Movie>>(<Movie>[]);
+  final stateNotifier = ValueNotifier<PageState>(PageState.LOADING);
+  List<Movie> movies = [];
 
-  get movies => moviesNotifier.value;
+  PageState get state => stateNotifier.value;
 
-  loadList() async{
-    state = PageState.LOADING;
-    var movies = await _getMoviesUseCase();
-    if(movies.isLeft()){
-      state = PageState.ERROR;
-    }else {
-      state = PageState.SUCCESS;
-    }
+  Future loadList() async {
+    stateNotifier.value = PageState.LOADING;
+    final moviesResult = await _getMoviesUseCase();
+    moviesResult.fold(
+      (failure) {
+        stateNotifier.value = PageState.ERROR;
+      },
+      (listMovies) {
+        stateNotifier.value = PageState.SUCCESS;
+        movies = listMovies;
+      },
+    );
   }
-
 }

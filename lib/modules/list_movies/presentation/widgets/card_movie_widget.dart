@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/themes/app_colors.dart';
 import 'package:movie_app/themes/app_text_styles.dart';
 
 class CardMovie extends StatelessWidget {
@@ -24,11 +25,15 @@ class CardMovie extends StatelessWidget {
           child: Column(
             children: [
               Container(
+                color: AppColors.primary,
+                height: 270,
+                width: double.infinity,
                 child: Image.network(imageUrl, errorBuilder:
                     (BuildContext context, Object exception,
                         StackTrace? stackTrace) {
                   return Icon(
                     Icons.movie,
+                    color: Colors.white,
                     size: 80,
                   );
                 }),

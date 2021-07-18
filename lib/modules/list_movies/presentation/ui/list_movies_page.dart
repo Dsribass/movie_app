@@ -18,25 +18,23 @@ class _ListMoviesPageState extends State<ListMoviesPage> {
 
   _success() {
     return ListView(
-      padding: EdgeInsets.only(top: 30, left: 15, right: 15),
-      children: [
-        Wrap(
-          spacing: 13,
-          runSpacing: 15,
-          children: [
-            CardMovie(
-              imageUrl:
-                  "https://image.tmdb.org/t/p/w200/rPdtLWNsZmAtoZl9PK7S2wE3qiS.jpg",
-              title: "Viuva Negra",
-              context: context,
-              onTap: () {
-                print("Clicou");
-              },
-            ),
-          ],
-        ),
-      ],
-    );
+        padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
+        children: [
+          Wrap(
+            spacing: 13,
+            runSpacing: 15,
+            children: controller.movies
+                .map((movie) => CardMovie(
+                      imageUrl: movie.posterUrl,
+                      title: movie.title,
+                      context: context,
+                      onTap: () {
+                        print("Clicou");
+                      },
+                    ))
+                .toList(),
+          ),
+        ]);
   }
 
   _loading() {
@@ -47,7 +45,7 @@ class _ListMoviesPageState extends State<ListMoviesPage> {
     );
   }
 
-  _error(String messageError) {
+  _error([String messageError = "Falha ao carregar conteúdo..."]) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15),
       child: Center(
@@ -65,12 +63,31 @@ class _ListMoviesPageState extends State<ListMoviesPage> {
             ),
             ErrorButton(
               textButton: "Tentar Novamente",
-              onPressed: () {},
+              onPressed: () async {
+                controller.loadList();
+              },
             ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controller.loadList();
+  }
+
+  stateManagement(PageState state) {
+    switch (state) {
+      case PageState.LOADING:
+        return _loading();
+      case PageState.ERROR:
+        return _error();
+      case PageState.SUCCESS:
+        return _success();
+    }
   }
 
   @override
@@ -84,7 +101,9 @@ class _ListMoviesPageState extends State<ListMoviesPage> {
         elevation: 0,
         toolbarHeight: 100,
       ),
-      body: _success(),
+      body: ValueListenableBuilder<PageState>(
+          valueListenable: controller.stateNotifier,
+          builder: (_, state, __) => stateManagement(state)),
     );
   }
 }
