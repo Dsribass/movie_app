@@ -9,14 +9,14 @@ abstract class IMoviesRepository {
 }
 
 class MoviesRepository implements IMoviesRepository {
-  IDataSource ds;
+  IDataSource _ds;
 
-  MoviesRepository(this.ds);
+  MoviesRepository(this._ds);
 
   @override
   Future<Either<FailureGetMoviesException, List<Movie>>> fetchAll() async{
     try{
-      final response = await ds.fetchAll();
+      final response = await _ds.fetchAll();
       return Right(response);
     }on FailureGetMoviesException catch(e){
       return Left(e);

@@ -1,1 +1,4 @@
-class FailureFindMovieException implements Exception {}
+class FailureFindMovieException implements Exception {
+  final String ?message;
+  FailureFindMovieException({this.message});
+}

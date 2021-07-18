@@ -8,7 +8,7 @@ class FindMovieUseCase {
 
   FindMovieUseCase(this._repository);
 
-  Future<Either<FailureFindMovieException,List<MovieDetail>>> call(int id){
+  Future<Either<FailureFindMovieException,MovieDetail>> call(int id){
     return _repository.findOne(id);
   }
 }
