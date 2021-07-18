@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import 'package:movie_app/modules/list_movies/domain/entities/movie.dart';
-import 'package:movie_app/modules/list_movies/data/repositories/movies_repository.dart';
+import 'package:movie_app/modules/list_movies/data/repositories/get_movies_repository.dart';
 import 'package:movie_app/modules/list_movies/exceptions/failure_get_movies_exception.dart';
 
 abstract class IGetMoviesUseCase{
@@ -9,7 +9,7 @@ abstract class IGetMoviesUseCase{
 } 
 
 class GetMoviesUseCase {
-  IMoviesRepository _repository;
+  IGetMoviesRepository _repository;
 
   GetMoviesUseCase(this._repository);
 

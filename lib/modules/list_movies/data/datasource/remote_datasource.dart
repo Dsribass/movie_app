@@ -21,16 +21,4 @@ class RemoteDataSource implements IDataSource {
       throw FailureGetMoviesException(message: "Unable to get movies");
     }
   }
-
-  @override
-  Future<Movie> findOne(int id) async {
-    final url = Uri.parse("https://desafio-mobile.nyc3.digitaloceanspaces.com/movies/$id");
-    final response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      return Movie.fromJson(response.body);
-    } else {
-      throw FailureGetMoviesException(message: "Unable to get movie");
-    }
-  }
 }
