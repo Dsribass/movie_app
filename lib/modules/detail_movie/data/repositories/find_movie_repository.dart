@@ -1,20 +1,20 @@
 import 'package:dartz/dartz.dart';
-import 'package:movie_app/modules/detail_movie/data/datasource/i_detail_movie_datasource.dart';
-import 'package:movie_app/modules/detail_movie/domain/entities/movie_detail.dart';
+import 'package:movie_app/modules/detail_movie/data/datasource/detail_movie_remote_datasource.dart';
+import 'package:movie_app/modules/detail_movie/domain/entities/detail_movie.dart';
 import 'package:movie_app/modules/detail_movie/exceptions/failure_find_movie_exception.dart';
 
 abstract class IFindMovieRepository {
-  Future<Either<FailureFindMovieException,MovieDetail>> findOne(int id);
+  Future<Either<FailureFindMovieException,DetailMovie>> findOne(int id);
 }
 
 
 class FindMovieRepository implements IFindMovieRepository{
-  final IDetailMovieDataSource _ds;
+  final IDetailMovieRemoteDataSource _ds;
 
   FindMovieRepository(this._ds);
 
   @override
-  Future<Either<FailureFindMovieException, MovieDetail>> findOne(int id) async {
+  Future<Either<FailureFindMovieException, DetailMovie>> findOne(int id) async {
     try {
       final response = await _ds.findOne(id);
       return Right(response);

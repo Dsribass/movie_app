@@ -14,12 +14,12 @@ class AppTextStyles {
   );
   static final topic = GoogleFonts.inter(
     color: Colors.black,
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: FontWeight.bold
   );
   static final regular = GoogleFonts.inter(
     color: Colors.black,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: FontWeight.normal
   );
   static final messageError = GoogleFonts.inter(
@@ -29,12 +29,12 @@ class AppTextStyles {
   );
   static final contentText = GoogleFonts.inter(
     color: Colors.black,
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: FontWeight.w300
   );
   static final genreButton = GoogleFonts.inter(
     color: Colors.black,
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: FontWeight.w300
   );
   static final textButton = GoogleFonts.inter(

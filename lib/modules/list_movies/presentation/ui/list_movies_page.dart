@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/modules/detail_movie/presentation/ui/detail_movie.dart';
 import 'package:movie_app/modules/list_movies/presentation/controller/list_movies_controller.dart';
 import 'package:movie_app/modules/list_movies/presentation/widgets/card_movie_widget.dart';
-import 'package:movie_app/modules/list_movies/presentation/widgets/error_button.dart';
+import 'package:movie_app/widgets/error_button.dart';
 import 'package:movie_app/themes/app_colors.dart';
 import 'package:movie_app/themes/app_images.dart';
 import 'package:movie_app/themes/app_text_styles.dart';
+import 'package:movie_app/widgets/error_content.dart';
 
 class ListMoviesPage extends StatefulWidget {
   const ListMoviesPage({Key? key}) : super(key: key);
@@ -18,23 +20,28 @@ class _ListMoviesPageState extends State<ListMoviesPage> {
 
   _success() {
     return ListView(
-        padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
-        children: [
-          Wrap(
-            spacing: 13,
-            runSpacing: 15,
-            children: controller.movies
-                .map((movie) => CardMovie(
-                      imageUrl: movie.posterUrl,
-                      title: movie.title,
-                      context: context,
-                      onTap: () {
-                        print("Clicou");
-                      },
-                    ))
-                .toList(),
-          ),
-        ]);
+      padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
+      children: [
+        Wrap(
+          spacing: 13,
+          runSpacing: 15,
+          children: controller.movies
+              .map((movie) =>
+              CardMovie(
+                imageUrl: movie.posterUrl,
+                title: movie.title,
+                context: context,
+                onTap: () {
+                  var route = MaterialPageRoute(
+                    builder: (context) => new DetailMoviePage(
+                        id: movie.id));
+                  Navigator.of(context).push(route);
+                },
+              ))
+              .toList(),
+        ),
+      ],
+    );
   }
 
   _loading() {
@@ -46,30 +53,12 @@ class _ListMoviesPageState extends State<ListMoviesPage> {
   }
 
   _error([String messageError = "Falha ao carregar conteúdo..."]) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15),
-      child: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              messageError,
-              style: AppTextStyles.messageError,
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            ErrorButton(
-              textButton: "Tentar Novamente",
-              onPressed: () async {
-                controller.loadList();
-              },
-            ),
-          ],
-        ),
-      ),
+    return ErrorContent(
+      messageError: messageError,
+      textButton: "Tentar Novamente",
+      action: () async {
+        controller.loadList();
+      },
     );
   }
 

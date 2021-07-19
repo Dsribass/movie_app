@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:movie_app/modules/list_movies/domain/entities/movie.dart';
-import 'package:movie_app/modules/list_movies/exceptions/failure_cache_movies_exception.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class IListMoviesLocalDataSource {

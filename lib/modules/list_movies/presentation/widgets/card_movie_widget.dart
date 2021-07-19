@@ -28,15 +28,17 @@ class CardMovie extends StatelessWidget {
                 color: AppColors.primary,
                 height: 270,
                 width: double.infinity,
-                child: Image.network(imageUrl, errorBuilder:
-                    (BuildContext context, Object exception,
-                        StackTrace? stackTrace) {
-                  return Icon(
-                    Icons.movie,
-                    color: Colors.white,
-                    size: 80,
-                  );
-                }),
+                child: Image.network(
+                  imageUrl,
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace? stackTrace) {
+                    return Icon(
+                      Icons.movie,
+                      color: Colors.white,
+                      size: 80,
+                    );
+                  },
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 15),

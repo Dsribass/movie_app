@@ -3,11 +3,12 @@ import 'package:movie_app/modules/list_movies/data/datasource/list_movies_local_
 import 'package:movie_app/modules/list_movies/data/datasource/list_movies_remote_datasource.dart';
 
 import 'package:movie_app/modules/list_movies/domain/entities/movie.dart';
-import 'package:movie_app/modules/list_movies/exceptions/failure_get_movies_exception.dart';
+import 'package:movie_app/modules/list_movies/exceptions/cache_movies_exception.dart';
+import 'package:movie_app/modules/list_movies/exceptions/server_movies_exception.dart';
 import 'package:movie_app/network/network.dart';
 
 abstract class IGetMoviesRepository {
-  Future<Either<FailureGetMoviesException,List<Movie>>> fetchAll();
+  Future<Either<Exception,List<Movie>>> fetchAll();
 }
 
 class GetMoviesRepository implements IGetMoviesRepository {
@@ -18,28 +19,36 @@ class GetMoviesRepository implements IGetMoviesRepository {
   GetMoviesRepository(this._localDataSource, this._remoteDataSource) : _network = Network();
 
   @override
-  Future<Either<FailureGetMoviesException, List<Movie>>> fetchAll() async{
+  Future<Either<Exception, List<Movie>>> fetchAll() async{
     if(await _network.isConnected()){
-      try{
-        final response = await _remoteDataSource.fetchAll();
-        _localDataSource.cacheMovies(response);
-        print("remoto");
-        return Right(response);
-      }on FailureGetMoviesException catch(e){
-        return Left(e);
-      }catch(e){
-        return Left(FailureGetMoviesException(message:"Unexpected Error"));
-      }
+      return _getMoviesFromRemote();
     }else{
-      try{
-        final response = await _localDataSource.fetchAll();
-        print("Local");
-        return Right(response);
-      }on FailureGetMoviesException catch(e){
-        return Left(e);
-      }catch(e){
-        return Left(FailureGetMoviesException(message:"Unexpected Error"));
-      }
+      return _getMoviesFromLocal();
+    }
+  }
+
+  Future<Either<Exception, List<Movie>>> _getMoviesFromLocal() async {
+    try{
+      final response = await _localDataSource.fetchAll();
+      if(response.isEmpty)
+        return Left(EmptyListException(message:"Movies list is empty"));
+      return Right(response);
+    }on CacheMoviesException catch(e){
+      return Left(e);
+    }catch(e){
+      return Left(CacheMoviesException(message:"Unexpected Error"));
+    }
+  }
+
+  Future<Either<Exception, List<Movie>>> _getMoviesFromRemote() async{
+    try{
+      final response = await _remoteDataSource.fetchAll();
+      _localDataSource.cacheMovies(response);
+      return Right(response);
+    }on ServerMoviesException catch(e){
+      return Left(e);
+    }catch(e){
+      return Left(ServerMoviesException(message:"Unexpected Error"));
     }
   }
 

@@ -9,7 +9,8 @@ import 'package:movie_app/modules/list_movies/domain/usecases/get_movies_usecase
 enum PageState { LOADING, SUCCESS, ERROR }
 
 class ListMoviesController {
-  final _getMoviesUseCase = GetMoviesUseCase(GetMoviesRepository(ListMoviesLocalDataSource(),ListMoviesRemoteDataSource()));
+  final _getMoviesUseCase = GetMoviesUseCase(GetMoviesRepository(
+      ListMoviesLocalDataSource(), ListMoviesRemoteDataSource()));
   final stateNotifier = ValueNotifier<PageState>(PageState.LOADING);
   List<Movie> movies = [];
 

@@ -1,17 +1,26 @@
 import 'dart:convert';
 
-class MovieDetail {
-  final String id;
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
+
+class DetailMovie {
+  final int id;
   final String backdropUrl;
   final String title;
   final double voteAverage;
   final int runtime;
   final List<String> genres;
-  final DateTime releaseDate;
+  final String releaseDate;
   final int budget;
   final String overview;
 
-  MovieDetail(this.id, this.backdropUrl, this.title, this.voteAverage,
+  String get dateFormat {
+    final date = DateTime.parse(releaseDate);
+    final dateFormat = DateFormat("MMMM yyyy");
+    return dateFormat.format(date);
+  }
+
+  DetailMovie(this.id, this.backdropUrl, this.title, this.voteAverage,
       this.runtime, this.genres, this.releaseDate, this.budget, this.overview);
 
   Map<String, dynamic> toMap() {
@@ -22,21 +31,21 @@ class MovieDetail {
       'vote_average': voteAverage,
       'runtime': runtime,
       'genres': genres,
-      'release_date': releaseDate.millisecondsSinceEpoch,
+      'release_date': releaseDate,
       'budget': budget,
       'overview': overview,
     };
   }
 
-  factory MovieDetail.fromMap(Map<String, dynamic> map) {
-    return MovieDetail(
+  factory DetailMovie.fromMap(Map<String, dynamic> map) {
+    return DetailMovie(
       map['id'],
       map['backdrop_url'],
       map['title'],
       map['vote_average'],
       map['runtime'],
       List<String>.from(map['genres']),
-      DateTime.fromMillisecondsSinceEpoch(map['release_date']),
+      map['release_date'],
       map['budget'],
       map['overview'],
     );
@@ -44,5 +53,5 @@ class MovieDetail {
 
   String toJson() => json.encode(toMap());
 
-  factory MovieDetail.fromJson(String source) => MovieDetail.fromMap(json.decode(source));
+  factory DetailMovie.fromJson(String source) => DetailMovie.fromMap(json.decode(source));
 }
