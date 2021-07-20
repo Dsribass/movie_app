@@ -12,6 +12,11 @@ class DetailMovie {
   final int budget;
   final String overview;
 
+  String get budgetFormat {
+    final budgetFormat = NumberFormat("#,##0.00");
+    return budgetFormat.format(budget);
+  }
+
   String get runtimeFormat {
     int hour = runtime ~/ 60;
     int minute = runtime % 60;

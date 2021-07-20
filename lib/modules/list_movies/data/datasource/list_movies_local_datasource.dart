@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:movie_app/modules/list_movies/domain/entities/movie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

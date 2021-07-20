@@ -117,7 +117,7 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                       Topics(topic: "Lançamento", content: movie.dateFormat),
                       Topics(
                           topic: "Orçamento",
-                          content: "U\$ " + movie.budget.toString()),
+                          content: "U\$ " + movie.budgetFormat),
                     ],
                   ),
                 ),
