@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/modules/detail_movie/presentation/ui/detail_movie.dart';
 import 'package:movie_app/modules/list_movies/presentation/controller/list_movies_controller.dart';
 import 'package:movie_app/modules/list_movies/presentation/widgets/card_movie_widget.dart';
-import 'package:movie_app/widgets/error_button.dart';
-import 'package:movie_app/themes/app_colors.dart';
 import 'package:movie_app/themes/app_images.dart';
-import 'package:movie_app/themes/app_text_styles.dart';
 import 'package:movie_app/widgets/error_content.dart';
 
 class ListMoviesPage extends StatefulWidget {
@@ -35,7 +32,7 @@ class _ListMoviesPageState extends State<ListMoviesPage> {
                   var route = MaterialPageRoute(
                     builder: (context) => new DetailMoviePage(
                         id: movie.id));
-                  Navigator.of(context).push(route);
+                  Navigator.of(context).pushReplacement(route);
                 },
               ))
               .toList(),

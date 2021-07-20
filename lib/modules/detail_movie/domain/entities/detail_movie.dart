@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 class DetailMovie {
@@ -13,6 +11,12 @@ class DetailMovie {
   final String releaseDate;
   final int budget;
   final String overview;
+
+  String get runtimeFormat {
+    int hour = runtime ~/ 60;
+    int minute = runtime % 60;
+    return "${hour.toString()}h ${minute.toString()}min";
+  }
 
   String get dateFormat {
     final date = DateTime.parse(releaseDate);

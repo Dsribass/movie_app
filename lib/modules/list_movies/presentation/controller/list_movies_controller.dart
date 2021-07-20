@@ -11,6 +11,7 @@ enum PageState { LOADING, SUCCESS, ERROR }
 class ListMoviesController {
   final _getMoviesUseCase = GetMoviesUseCase(GetMoviesRepository(
       ListMoviesLocalDataSource(), ListMoviesRemoteDataSource()));
+
   final stateNotifier = ValueNotifier<PageState>(PageState.LOADING);
   List<Movie> movies = [];
 

@@ -14,7 +14,7 @@ class AppWidget extends StatelessWidget{
         primarySwatch: Colors.red,
         primaryColor: AppColors.primary,
       ),
-      home: ListMoviesPage(),
+      home: SplashPage(),
     );
   }
 }

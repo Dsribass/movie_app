@@ -60,7 +60,12 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
               SafeArea(
                 child: Padding(
                   padding: EdgeInsets.only(left: 30, top: 15),
-                  child: _returnPage(onTap: () => Navigator.of(context).pop()),
+                  child: _returnPage(onTap: () {
+                    var route = MaterialPageRoute(
+                      builder: (context) => new ListMoviesPage(),
+                    );
+                    Navigator.of(context).pushReplacement(route);
+                  }),
                 ),
               ),
             ],
@@ -85,7 +90,7 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                       ),
                       TextWithIcon(
                         color: AppColors.green,
-                        title: movie.runtime.toString(),
+                        title: movie.runtimeFormat,
                         icon: Icons.access_time,
                       ),
                       SizedBox(
@@ -98,8 +103,11 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                   padding: EdgeInsets.only(top: 25),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: List.generate(movie.genres.length,
-                        (i) => GenreButton(title: movie.genres[i])),
+                    children: List.generate(
+                        movie.genres.length,
+                        (i) => GenreButton(
+                              title: movie.genres[i],
+                            )),
                   ),
                 ),
                 Padding(
@@ -141,8 +149,11 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
       width: double.infinity,
       child: ErrorContent(
         messageError: messageError,
-        action: () async {
-          Navigator.of(context).pop();
+        action: () {
+          var route = MaterialPageRoute(
+            builder: (context) => new ListMoviesPage(),
+          );
+          Navigator.of(context).pushReplacement(route);
         },
         textButton: "Voltar",
       ),
