@@ -1,16 +1,30 @@
-# movie_app
+# Movies.
 
-A new Flutter project.
+A mobile app that request from an API a list of 20 movies that are among the best obtained by TMDB users.
+For state management, I didn't use mobx,Bloc or anything like that. I decided to use the native Value Notifier.
 
-## Getting Started
+<br>
+<p float="left">
+<img src="https://user-images.githubusercontent.com/68345989/126354262-583b1c9a-d61c-49d0-9d5e-f034b6257973.png" width="200"/>
+<img src="https://user-images.githubusercontent.com/68345989/126354961-45484f9f-9439-4d0a-96c0-aa1a63ade040.png" width="200"/>
+<img src="https://user-images.githubusercontent.com/68345989/126355011-63e028f9-6352-4a23-9204-65190aea6703.png" width="200"/>
+</p>
 
-This project is a starting point for a Flutter application.
+<br>
 
-A few resources to get you started if this is your first Flutter project:
+## How to use
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Make sure you have [Flutter](https://flutter.dev/docs/get-started/install), and [Android Studio](https://developer.android.com/studio) installed.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+
+# Install dependencies
+$ flutter pub get
+
+# Run app
+$ flutter run
+
+```
+
+> GitHub [Dsribass](https://github.com/Dsribass) <br>
+> Linkedin [Daniel Ribas](https://www.linkedin.com/in/daniel-ribas-125062209/)
