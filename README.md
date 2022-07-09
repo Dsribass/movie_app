@@ -1,7 +1,7 @@
 # Movies.
 
-A mobile app that request from an API a list of 20 movies that are among the best obtained by TMDB users.
-For state management, I didn't use mobx,Bloc or anything like that. I decided to use the native Value Notifier.
+Aplicativo desenvolvido durante processo seletivo para cargo de Estágiario Mobile.
+Durante o desenvolvimento foram utlizados alguns conceitos de reatividade para gerenciamento de estado, e também de Clean Architecture.
 
 <br>
 <p float="left">
@@ -14,7 +14,7 @@ For state management, I didn't use mobx,Bloc or anything like that. I decided to
 
 ## How to use
 
-Make sure you have [Flutter](https://flutter.dev/docs/get-started/install), and [Android Studio](https://developer.android.com/studio) installed.
+Verifique se você possui o [Flutter](https://flutter.dev/docs/get-started/install), e [Android Studio](https://developer.android.com/studio) instalados.
 
 ```bash
 
